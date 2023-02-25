@@ -1,6 +1,7 @@
 package com.practice.spring.controller;
 
-import javax.validation.Valid;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.practice.spring.service.MemberService;
+import com.practice.spring.vo.MemberOKVO;
 import com.practice.spring.vo.MemberVO;
 
 import lombok.RequiredArgsConstructor;
@@ -30,13 +32,18 @@ public class MemberController {
 	}
 	
 	@PostMapping("/register")
-	public String registerPost(@ModelAttribute("member") MemberVO member) {
-		System.out.println(member);
-		boolean res = memberService.registerMember(member);
+	public String registerPost(@ModelAttribute("member") MemberVO member,HttpServletRequest request) {
+		boolean res = memberService.registerMember(member,request);
 		if(res) {
 			return "redirect:/";
 		}else {
 			return "/member/register";
 		}
+	}
+	
+	@GetMapping("/email/authentication")
+	public String emailAuthentication(MemberOKVO mok) {
+		boolean res = memberService.emailAuthentication(mok);
+		return "redirect:/";
 	}
 }

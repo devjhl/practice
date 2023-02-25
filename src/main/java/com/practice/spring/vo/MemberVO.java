@@ -3,7 +3,6 @@ package com.practice.spring.vo;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.validation.constraints.*;
 
 import lombok.Data;
 

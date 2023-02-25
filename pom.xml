@@ -195,19 +195,18 @@
 		    <version>4.1.0.RELEASE</version>
 		</dependency>
 		
-		<!-- hibernate-validator 5~6 버전대랑 javax.validation 1.x.x는 호환이 안된다. -->
+		<!-- pom.xml -->
 	<dependency>
-	       <groupId>org.hibernate.validator</groupId>
-	    <artifactId>hibernate-validator</artifactId>
-	    <version>6.0.10.Final</version>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>${org.springframework-version}</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
 	<dependency>
-	    <groupId>javax.validation</groupId>
-	    <artifactId>validation-api</artifactId>
-	    <version>2.0.1.Final</version>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>1.4.3</version>
 	</dependency>
-	
+		
 	</dependencies>
     <build>
         <plugins>
