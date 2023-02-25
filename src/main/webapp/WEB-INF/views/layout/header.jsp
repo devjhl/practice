@@ -5,7 +5,7 @@
  
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 	<div class="container">
-	  	<a class="navbar-brand" href="#" style="padding: 0">Navbar</a>
+	  	<a class="navbar-brand" href="/test" style="padding: 0">Navbar</a>
 	  		<img height="40" alt="로고" src="<c:url value="/resources/img/bird.jpg"></c:url>">
 	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    	<span class="navbar-toggler-icon"></span>
@@ -14,7 +14,7 @@
 	    	<ul class="navbar-nav">
 		      	<li class="nav-item">
 		      	
-		        	<a class="nav-link" href="<c:url value="/signup"></c:url>">회원가입</a>
+		        	<a class="nav-link" href="<c:url value="/member/register"></c:url>">회원가입</a>
 		      	</li>
 		      	<li class="nav-item">
 		        	<a class="nav-link" href="">Link</a>
