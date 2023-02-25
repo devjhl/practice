@@ -92,6 +92,16 @@ public class MemberServiceImpl implements MemberService{
 		return updateCount !=0;
 	}
 
+	@Override
+	public MemberVO login(MemberVO member) {
+		MemberVO dbMember = memberDAO.selectMemberById(member.getMe_id());
+		if(dbMember == null)
+			return null;
+		if(passwordEncoder.matches(member.getMe_pw(), dbMember.getMe_pw()))
+			return dbMember;
+		return null;
+	}
+
 	
 
 }

@@ -29,5 +29,11 @@
 			where
 				me_id = #{me_id}
 	</update>
+	
+	<select id="selectMemberById" resultType="com.practice.spring.vo.MemberVO">
+		select *
+		from member
+		where me_id = #{me_id}
+	</select>
 
 </mapper>

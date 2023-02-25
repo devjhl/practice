@@ -2,6 +2,7 @@ package com.practice.spring.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +45,30 @@ public class MemberController {
 	@GetMapping("/email/authentication")
 	public String emailAuthentication(MemberOKVO mok) {
 		boolean res = memberService.emailAuthentication(mok);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "/member/login";
+	}
+	
+	@PostMapping("/login")
+	public String loginPost(MemberVO member) {
+		if(member == null)
+			return null;
+		MemberVO user = memberService.login(member);
+		if(user == null)
+			return "redirect:/member/login";
+		return "redirect:/";
+	}
+	
+	@PostMapping("/logout")
+	public String logout(HttpSession session) {
+		MemberVO memberVO =  (MemberVO) session.getAttribute("user");
+		if(memberVO != null) {
+			session.removeAttribute("user");
+		}
 		return "redirect:/";
 	}
 }
