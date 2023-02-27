@@ -54,12 +54,13 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(MemberVO member) {
+	public String loginPost(MemberVO member, Model model) {
 		if(member == null)
 			return null;
 		MemberVO user = memberService.login(member);
 		if(user == null)
 			return "redirect:/member/login";
+		model.addAttribute("user",user);
 		return "redirect:/";
 	}
 	

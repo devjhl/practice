@@ -39,7 +39,7 @@
 		class="com.practice.spring.interceptor.LoginInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
-			<mapping path="/login"/>
+			<mapping path="/member/login"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>
