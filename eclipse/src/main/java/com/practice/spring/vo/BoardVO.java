@@ -1,5 +1,6 @@
 package com.practice.spring.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,6 @@ public class BoardVO {
 	private int bo_num;
 	private String bo_title;
 	private String bo_content;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date bo_register_date;
 	private Date bo_update_date;
 	private int bo_views;
@@ -23,5 +23,11 @@ public class BoardVO {
 	private int bo_bt_num;
 	private String bt_type;
 	private String bt_name;
+	
+//	어노테이션 안먹힘
+	public String getBo_register_date_str() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(bo_register_date);
+	}
 
 }

@@ -45,4 +45,15 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectAllBoardType(authority);
 	}
 
+	@Override
+	public BoardVO getBoard(int bo_num, MemberVO user) {
+		
+		//조회수 증가
+		boardDao.updateBoardViews(bo_num);
+		
+		BoardVO board = boardDao.selectBoard(bo_num);
+		
+		return board;
+	}
+
 }

@@ -3,15 +3,18 @@ package com.practice.spring.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.practice.spring.service.BoardService;
+import com.practice.spring.utils.MessageUtils;
 import com.practice.spring.vo.BoardTypeVO;
 import com.practice.spring.vo.BoardVO;
 import com.practice.spring.vo.MemberVO;
@@ -55,4 +58,19 @@ public class BoardController {
 		boardService.insertBoard(board, user);
 		return "redirect:/";
 	}
+	
+	@GetMapping("/detail/{bo_num}")
+	public String boardDetail(Model model,
+			@PathVariable("bo_num") int bo_num,HttpSession session,
+			HttpServletResponse response) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		BoardVO board = boardService.getBoard(bo_num,user);
+		
+		model.addAttribute("board", board);
+		
+		if(board == null) 
+			MessageUtils.alertAndMovePage(response, "삭제되거나 조회권한이 없는 게시글 입니다.", "/test", "/board/list");
+		return "/board/detail";
+	}
+	
 }

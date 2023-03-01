@@ -44,4 +44,18 @@
   			from board 
   	</insert>
   	
+  	<select id="selectBoard" resultType="com.practice.spring.vo.BoardVO">
+  		select * 
+  		from board
+  		where bo_num = #{bo_num}
+  	</select>
+  	
+  	<update id="updateBoardViews">
+  		update board
+  			set
+  				bo_views = bo_views+1
+  			where 
+  				bo_num = #{bo_num}
+  	</update>
+  	
 </mapper>

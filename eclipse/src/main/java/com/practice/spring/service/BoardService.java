@@ -14,4 +14,6 @@ public interface BoardService {
 	
 	ArrayList<BoardTypeVO> getBoardType(int authority);
 
+	BoardVO getBoard(int bo_num, MemberVO user);
+
 }
