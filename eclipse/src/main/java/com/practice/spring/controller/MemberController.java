@@ -64,7 +64,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@PostMapping("/logout")
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		MemberVO memberVO =  (MemberVO) session.getAttribute("user");
 		if(memberVO != null) {
