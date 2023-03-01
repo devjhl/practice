@@ -34,16 +34,20 @@
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
-	
 	<beans:bean id="loginInterceptor" 
 		class="com.practice.spring.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="adminInterceptor" 
+		class="com.practice.spring.interceptor.AdminInterceptor"></beans:bean>
 	<interceptors>
-		<interceptor>
-			<mapping path="/member/login"/>
-			<beans:ref bean="loginInterceptor"/>
-		</interceptor>
-	</interceptors>
-	
+	    <interceptor>
+	        <mapping path="/member/login"/>
+	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/admin/board/type/**"/>
+	        <beans:ref bean="adminInterceptor"/>
+	    </interceptor>
+	</interceptors>	
 	<context:component-scan base-package="com.practice.spring.*" />
 	
 </beans:beans>
