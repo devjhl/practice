@@ -26,6 +26,15 @@
 		        	<a class="nav-link" href="<c:url value="/member/logout"></c:url>">로그아웃</a>
 		      	</li>
 		      	</c:if>
+		      	<c:if test="${user != null && user.me_authority >= 9}">
+		      		 <li class="nav-item dropdown">
+				      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+				        관리자 메뉴
+				      </a>
+				      <div class="dropdown-menu">
+				        <a class="dropdown-item" href="<c:url value='/admin/board/type/list'></c:url>">게시글 타입 관리</a>
+				      </div>
+		      	</c:if>
 	    	</ul>
 		</div> 
 	</div> 
