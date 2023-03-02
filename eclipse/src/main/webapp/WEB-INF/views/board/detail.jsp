@@ -52,3 +52,4 @@
 		</div>
 	</div>
 </div>
+${board.bt_type}

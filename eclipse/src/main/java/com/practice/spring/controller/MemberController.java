@@ -54,13 +54,14 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(MemberVO member, Model model) {
+	public String loginPost(Model model, MemberVO member) {
 		if(member == null)
 			return null;
 		MemberVO user = memberService.login(member);
 		if(user == null)
 			return "redirect:/member/login";
-		model.addAttribute("user",user);
+		System.out.println(member);
+		model.addAttribute("user",user); // 회원정보를 전달해야지 인터셉터가 가로챔
 		return "redirect:/";
 	}
 	
