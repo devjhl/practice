@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.practice.spring.vo.BoardTypeVO;
 import com.practice.spring.vo.BoardVO;
+import com.practice.spring.vo.FileVO;
 
 public interface BoardDAO {
 
@@ -24,5 +25,9 @@ public interface BoardDAO {
 	BoardVO selectBoard(@Param("bo_num") int bo_num);
 	
 	void updateBoardViews(@Param("bo_num") int bo_num);
+	
+	void insertFile(@Param("file")FileVO fileVo);
+
+	ArrayList<FileVO> selectFileList(int bo_num);
 
 }
