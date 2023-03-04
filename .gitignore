@@ -10,3 +10,5 @@ eclipse/target/classes/com/practice/spring/service/BoardService.class
 eclipse/target/classes/com/practice/spring/service/BoardServiceImpl.class
 
 eclipse/target/classes/com/practice/spring/vo/BoardVO.class
+
+*.class
