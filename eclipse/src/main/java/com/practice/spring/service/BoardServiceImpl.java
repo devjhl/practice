@@ -132,4 +132,16 @@ public class BoardServiceImpl implements BoardService{
 		boardDao.updateBoardByLikes(bo_num);
 	}
 
+	@Override
+	public boolean deleteBoard(int bo_num, MemberVO user) {
+		if(user == null)
+			return false;
+		BoardVO boardVO = boardDao.selectBoard(bo_num);
+		if(boardVO == null)
+			return false;
+		if(!boardVO.getBo_me_id().equals(user.getMe_id()))
+			return false;
+		return boardDao.deleteBoard(bo_num) != 0;
+	}
+
 }
