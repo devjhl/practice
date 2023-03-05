@@ -1,6 +1,8 @@
 package com.practice.spring.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.practice.spring.service.BoardService;
@@ -19,6 +22,7 @@ import com.practice.spring.utils.MessageUtils;
 import com.practice.spring.vo.BoardTypeVO;
 import com.practice.spring.vo.BoardVO;
 import com.practice.spring.vo.FileVO;
+import com.practice.spring.vo.LikesVO;
 import com.practice.spring.vo.MemberVO;
 
 import lombok.RequiredArgsConstructor;
@@ -68,14 +72,30 @@ public class BoardController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		BoardVO board = boardService.getBoard(bo_num,user);
 		ArrayList<FileVO> files = boardService.getFileList(bo_num);
+		LikesVO likesVo = boardService.getLikes(bo_num,user);
 		
 		
 		model.addAttribute("board", board);
 		model.addAttribute("files", files);
+		model.addAttribute("likes", likesVo);
 		
 		if(board == null) 
 			MessageUtils.alertAndMovePage(response, "삭제되거나 조회권한이 없는 게시글 입니다.", "/test", "/board/list");
 		return "/board/detail";
 	}
 	
+	@ResponseBody
+	@GetMapping(value = "/like/{li_state}/{bo_num}")
+	public Map<String, Object> boardLike(HttpSession session, 
+		@PathVariable("li_state")int li_state,
+		@PathVariable("bo_num")int bo_num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		//res - 1: 추천, -1 : 비추천 : 0이면 취소
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		int res = boardService.updateLikes(user, bo_num, li_state);
+		boardService.updateBoardByLikes(bo_num);
+		map.put("res", res);
+		return map;
+	}
 }
+	

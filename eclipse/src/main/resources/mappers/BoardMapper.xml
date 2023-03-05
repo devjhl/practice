@@ -67,4 +67,39 @@
   	<select id="selectFileList" resultType="com.practice.spring.vo.FileVO">
   		select * from file where fi_bo_num = #{bo_num}
   	</select>
+  	
+  	<select id="selectLikesById" resultType="com.practice.spring.vo.LikesVO">
+  		select *
+  			from
+  				likes
+  			where
+  				li_bo_num = #{li_bo_num} and li_me_id = #{li_me_id}
+  	</select>
+  	
+  	<insert id="insertLikes">
+  		insert into
+  			likes(li_state,li_me_id,li_bo_num)
+  			values(#{li.li_state},#{li.li_me_id},#{li.li_bo_num})
+  	</insert>
+  	
+	 <update id="updateLikes">
+  		update likes
+  			set
+  				li_state = #{li.li_state}
+  			where
+  				li_num = #{li.li_num}
+  	</update>
+  	
+  	<update id="updateBoardByLikes">
+  		update board
+  			set
+  				bo_up = 
+  					(select count(*) from likes 
+  						where li_bo_num = #{bo_num} and li_state = 1),
+  				bo_down = 
+  					(select count(*) from likes 
+  						where li_bo_num = #{bo_num} and li_state = -1)
+  			where
+  				bo_num = #{bo_num}
+  	</update>
 </mapper>

@@ -60,7 +60,6 @@ public class MemberController {
 		MemberVO user = memberService.login(member);
 		if(user == null)
 			return "redirect:/member/login";
-		System.out.println(member);
 		model.addAttribute("user",user); // 회원정보를 전달해야지 인터셉터가 가로챔
 		return "redirect:/";
 	}
