@@ -131,6 +131,17 @@ public class BoardServiceImpl implements BoardService{
 	public void updateBoardByLikes(int bo_num) {
 		boardDao.updateBoardByLikes(bo_num);
 	}
+	
+	private void deleteFileList(ArrayList<FileVO> fileList) {
+		if(fileList == null || fileList.size() == 0) 
+			return;
+			 for (FileVO file : fileList) {
+				if(file == null)
+					continue;
+				 UploadFileUtils.removeFile(uploadPath, file.getFi_name());
+				boardDao.deleteFile(file); // 수정에서 첨부파일 교체할때 디비에서 삭제
+			}
+		}
 
 	@Override
 	public boolean deleteBoard(int bo_num, MemberVO user) {
@@ -141,7 +152,10 @@ public class BoardServiceImpl implements BoardService{
 			return false;
 		if(!boardVO.getBo_me_id().equals(user.getMe_id()))
 			return false;
+		//첨부파일 목록들을 가져옴 
+		ArrayList<FileVO> fileList = boardDao.selectFileList(bo_num);
+		deleteFileList(fileList);
 		return boardDao.deleteBoard(bo_num) != 0;
-	}
+		}
 
 }

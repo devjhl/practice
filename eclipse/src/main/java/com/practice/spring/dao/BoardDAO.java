@@ -30,7 +30,7 @@ public interface BoardDAO {
 	void insertFile(@Param("file")FileVO fileVo);
 
 	ArrayList<FileVO> selectFileList(@Param("bo_num") int bo_num);
-
+	
 	LikesVO selectLikesById(@Param("li_me_id")String me_id, @Param("li_bo_num") int bo_num);
 
 	void insertLikes(@Param("li")LikesVO likesVO);
@@ -40,5 +40,7 @@ public interface BoardDAO {
 	void updateBoardByLikes(@Param("bo_num") int bo_num);
 	
 	int deleteBoard(@Param("bo_num") int bo_num);
+
+	void deleteFile(@Param("file") FileVO file);
 
 }
