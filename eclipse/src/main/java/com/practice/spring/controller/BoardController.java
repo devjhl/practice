@@ -112,5 +112,55 @@ public class BoardController {
 			}
 			return "/board/list";
 	}
+	
+	@GetMapping("/update/{bo_num}")
+	public String boardUpdate(Model model
+			,HttpSession session,
+			@PathVariable("bo_num")int bo_num,
+			HttpServletResponse response) {
+		//세션에 있는 회원 정보를 가져옴
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		BoardVO board = boardService.getBoardByWriteAuthority(bo_num, user);
+		//첨부파일 가져옴
+		ArrayList<FileVO> files = boardService.getFileList(bo_num);
+		
+		if(board == null) {
+			MessageUtils.alertAndMovePage(response, "작성자가 아니거나 존재하지 않은 게시글 입니다.", "/test", "/board/list");
+		}else {
+			model.addAttribute("board",board);
+			model.addAttribute("files",files);
+			//?
+			ArrayList<BoardTypeVO> btList = boardService.getBoardType(user.getMe_authority());
+			model.addAttribute("btList",btList);
+			if(btList.size() == 0) {
+				MessageUtils.alertAndMovePage(response, 
+						"권한이 없어서작성할 수 있는 게시판이 없습니다.", "/test", 
+						"/board/list");
+			}
+		}
+		return "/board/update";
+	}
+	
+	@PostMapping("/update/{bo_num}")
+	public String boardUpdatePost(Model model
+			,HttpSession session,
+			@PathVariable("bo_num")int bo_num,
+			HttpServletResponse response, // 수정할 게시글 정보
+			BoardVO board,MultipartFile[] files, // 추가된 첨부파일
+			int [] fileNums) { // 삭제될 첨부파일
+		//세션에 있는 회원 정보 가져옴. 작성자와 아이디가 같은지 확인하려고
+				MemberVO user = (MemberVO)session.getAttribute("user");
+				if(boardService.updateBoard(board,files,fileNums, user)) {
+					MessageUtils.alertAndMovePage(response, 
+							"게시글을 수정했습니다.", "/test", 
+							"/board/detail/"+bo_num);
+				}else {
+					MessageUtils.alertAndMovePage(response, 
+							"게시글을 수정하지 못했습니다.", "/test", 
+							"/board/list");
+				}
+				return "/board/detail/"+bo_num;
+	}
+	
 }
 	
